@@ -1,6 +1,5 @@
-package com.digitalhouse.repositories;
+package com.digitalhouse.repository;
 
-import com.digitalhouse.domain.Odontologo;
 import com.digitalhouse.domain.Paciente;
 
 import java.sql.Connection;
@@ -12,11 +11,11 @@ public interface PacienteDAOH2 {
 
     void actualizar(Paciente paciente);
 
-    void eliminar(Long id);
+    void eliminar(int id);
 
-    void buscarPorId(Long id);
+    void buscarPorId(int id);
 
-    List<Paciente> listarTodos();
+    List<Paciente> listarPacientes();
 
     void crearTablaPaciente() throws Exception;
 

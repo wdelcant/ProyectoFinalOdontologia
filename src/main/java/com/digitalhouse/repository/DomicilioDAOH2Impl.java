@@ -1,4 +1,4 @@
-package com.digitalhouse.repositories;
+package com.digitalhouse.repository;
 
 public class DomicilioDAOH2Impl implements DomicilioDAOH2{
 }

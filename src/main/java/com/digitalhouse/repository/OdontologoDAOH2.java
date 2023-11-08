@@ -1,4 +1,4 @@
-package com.digitalhouse.repositories;
+package com.digitalhouse.repository;
 
 import com.digitalhouse.domain.Odontologo;
 
@@ -11,11 +11,11 @@ public interface OdontologoDAOH2 {
 
     void actualizar(Odontologo odontologo);
 
-    void eliminar(Long id);
+    void eliminar(int id);
 
-    void buscarPorId(Long id);
+    void buscarPorId(int id);
 
-    List<Odontologo> listarTodos();
+    List<Odontologo> listarOdontologos() throws Exception;
 
     void crearTablaOdontologo() throws Exception;
 

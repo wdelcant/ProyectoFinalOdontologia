@@ -1,4 +1,4 @@
-package com.digitalhouse.repositories;
+package com.digitalhouse.repository;
 
 import com.digitalhouse.domain.Paciente;
 import org.slf4j.Logger;
@@ -12,7 +12,8 @@ public class PacienteDAOH2Impl implements PacienteDAOH2 {
     private final static Logger logger = LoggerFactory.getLogger(PacienteDAOH2Impl.class);
 
     @Override
-    public void crearTablaPaciente() {
+    public void crearTablaPaciente() throws Exception{
+
         try {
 
             Connection connection = getConexion();
@@ -22,14 +23,7 @@ public class PacienteDAOH2Impl implements PacienteDAOH2 {
 
             // Ejecutar una consulta SQL y obtener un ResultSet
 
-            statement.execute("CREATE TABLE PACIENTE (\n" +
-                    "    ID INT PRIMARY KEY,\n" +
-                    "    NOMBRE VARCHAR(255),\n" +
-                    "    APELLIDO VARCHAR(255),\n" +
-                    "    DOMICILIO VARCHAR(255),\n" +
-                    "    DNI VARCHAR(50),\n" +
-                    "    FECHA_ALTA DATETIME\n" +
-                    ");");
+            statement.execute("CREATE TABLE PACIENTE(ID INT PRIMARY KEY, NOMBRE VARCHAR(255), APELLIDO VARCHAR(255), DOMICILIO VARCHAR(255), DNI INT, FECHA_ALTA DATETIME);");
 
 
         } catch (SQLException e) {
@@ -44,7 +38,7 @@ public class PacienteDAOH2Impl implements PacienteDAOH2 {
 
         try {
 
-            String insert = "INSERT INTO PACIENTE (ID,NOMBRE, APELLIDO, DOMICILIO, DNI, FECHA_ALTA) VALUES (?,?,?,?,?,?)";
+            String insert = "INSERT INTO paciente (ID,NOMBRE,APELLIDO,DOMICILIO,DNI,FECHA_ALTA) VALUES (?,?,?,?,?,?)";
 
             PreparedStatement sentencia = connection.prepareStatement(insert);
 
@@ -53,20 +47,24 @@ public class PacienteDAOH2Impl implements PacienteDAOH2 {
             sentencia.setString(3, paciente.getApellido());
             sentencia.setString(4, paciente.getDomicilio());
             sentencia.setInt(5, paciente.getDni());
-            sentencia.setDate(2, new java.sql.Date(paciente.getFechaAlta().getTime()));
+            sentencia.setDate(6, new java.sql.Date(paciente.getFechaAlta().getTime()));
             sentencia.execute();
 
             logger.info(sentencia.toString());
+
             sentencia.close();
+
             connection.commit();
 
         } catch (SQLException ex) {
             logger.error("Error al registrar el paciente " + ex.getMessage());
             ex.printStackTrace();
             connection.rollback();
+
             throw new Exception(ex);
 
         } catch (Exception e) {
+            e.printStackTrace();
             connection.rollback();
 
         } finally {
@@ -81,17 +79,17 @@ public class PacienteDAOH2Impl implements PacienteDAOH2 {
     }
 
     @Override
-    public void eliminar(Long id) {
+    public void eliminar(int id) {
 
     }
 
     @Override
-    public void buscarPorId(Long id) {
+    public void buscarPorId(int id) {
 
     }
 
     @Override
-    public List<Paciente> listarTodos() {
+    public List<Paciente> listarPacientes() {
         return null;
     }
 

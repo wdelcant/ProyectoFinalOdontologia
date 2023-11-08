@@ -1,7 +1,7 @@
 package com.digitalhouse.domain;
 
-import com.digitalhouse.repositories.OdontologoDAOH2;
-import com.digitalhouse.repositories.OdontologoDAOH2Impl;
+import com.digitalhouse.repository.OdontologoDAOH2;
+import com.digitalhouse.repository.OdontologoDAOH2Impl;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,16 +37,18 @@ public class OdontologoTest {
 
         odontologoTabla.crearTablaOdontologo();
 
+        logger.info("Tabla ODONTOLOGO creada en la base de datos");
+
     }
 
     @Test
     public void creaTablaEnBaseDeDatos() throws Exception {
 
-        Odontologo odontologo = new Odontologo(2 , 333333, "Marcelo", "Del Canto");
+        Odontologo odontologo = new Odontologo(3 , 333333, "Marcelo", "Del Canto");
 
         assertNotNull(odontologo);
 
-        logger.info("Odontologo creado: " + odontologo.toString());
+        logger.info("Odontologo creado: " + odontologo.getNombre() + " " + odontologo.getApellido());
 
         OdontologoDAOH2 odontologoTabla = new OdontologoDAOH2Impl();
 

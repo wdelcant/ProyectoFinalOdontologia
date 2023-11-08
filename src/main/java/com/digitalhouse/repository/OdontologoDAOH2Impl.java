@@ -1,10 +1,11 @@
-package com.digitalhouse.repositories;
+package com.digitalhouse.repository;
 
 import com.digitalhouse.domain.Odontologo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,8 +24,7 @@ public class OdontologoDAOH2Impl implements OdontologoDAOH2 {
 
             // Ejecutar una consulta SQL y obtener un ResultSet
 
-            statement.execute("CREATE TABLE ODONTOLOGO(ID INT PRIMARY KEY,\n" +
-                    "   NOMBRE VARCHAR(255), APELLIDO VARCHAR(255), NUMEROMATRICULA INT);");
+            statement.execute("CREATE TABLE ODONTOLOGO(ID INT PRIMARY KEY, NOMBRE VARCHAR(255), APELLIDO VARCHAR(255), NUMEROMATRICULA INT);");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -37,14 +37,14 @@ public class OdontologoDAOH2Impl implements OdontologoDAOH2 {
 
         try {
 
-            String insert = "INSERT INTO odontologo (ID,NUMEROMATRICULA,NOMBRE, APELLIDO) VALUES (?,?,?,?)";
+            String insert = "INSERT INTO odontologo (ID,NOMBRE,APELLIDO,NUMEROMATRICULA) VALUES (?,?,?,?)";
 
             PreparedStatement sentencia = connection.prepareStatement(insert);
 
             sentencia.setInt(1, odontologo.getId());
-            sentencia.setInt(2, odontologo.getNumeroMatricula());
-            sentencia.setString(3, odontologo.getNombre());
-            sentencia.setString(4, odontologo.getApellido());
+            sentencia.setString(2, odontologo.getNombre());
+            sentencia.setString(3, odontologo.getApellido());
+            sentencia.setInt(4, odontologo.getNumeroMatricula());
             sentencia.execute();
 
             logger.info(sentencia.toString());
@@ -75,20 +75,39 @@ public class OdontologoDAOH2Impl implements OdontologoDAOH2 {
     }
 
     @Override
-    public void eliminar(Long id) {
+    public void eliminar(int id) {
 
     }
 
     @Override
-    public void buscarPorId(Long id) {
+    public void buscarPorId(int id) {
 
     }
 
     @Override
-    public List<Odontologo> listarTodos() {
-        return null;
-    }
+    public List<Odontologo> listarOdontologos() throws Exception {
+        Connection connection = getConexion();
+        List<Odontologo> odontologos = new ArrayList<>();
 
+        try {
+
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ODONTOLOGO");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Odontologo odontologo = crearObjetoOdontologo(resultSet);
+                odontologos.add(odontologo);
+            }
+
+            logger.info("Listado de todos los Odontologos: " + odontologos);
+
+
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
 
     @Override
     public Connection getConexion() {
