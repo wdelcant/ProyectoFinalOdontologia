@@ -14,6 +14,7 @@ public class Paciente {
     public Paciente() {
     }
     public Paciente(int id, String nombre, String apellido, String domicilio, Integer dni, Date fechaAlta) {
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.domicilio = domicilio;
@@ -67,5 +68,12 @@ public class Paciente {
 
     public void setFechaAlta(Date fechaAlta) {
         this.fechaAlta = fechaAlta;
+    }
+
+    @Override
+    public String toString() {
+        return "Paciente :" +
+                nombre + " " + apellido;
+
     }
 }

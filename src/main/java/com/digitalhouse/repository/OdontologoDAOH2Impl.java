@@ -85,7 +85,7 @@ public class OdontologoDAOH2Impl implements OdontologoDAOH2 {
     }
 
     @Override
-    public List<Odontologo> listarOdontologos() throws Exception {
+    public List<Odontologo> listarOdontologos() {
         Connection connection = getConexion();
         List<Odontologo> odontologos = new ArrayList<>();
 
@@ -107,11 +107,23 @@ public class OdontologoDAOH2Impl implements OdontologoDAOH2 {
             e.printStackTrace();
         }
 
+        return odontologos;
     }
 
     @Override
     public Connection getConexion() {
         return Conexion.getConexion();
     }
+
+    private Odontologo crearObjetoOdontologo(ResultSet resultado) throws SQLException {
+
+        int id = resultado.getInt("id");
+        int numeroMatricula = resultado.getInt("numeroMatricula");
+        String nombre = resultado.getString("nombre");
+        String apellido = resultado.getString("apellido");
+
+        return new Odontologo(id, numeroMatricula, nombre, apellido);
+    }
+
 
 }

@@ -1,10 +1,12 @@
 package com.digitalhouse.repository;
 
+import com.digitalhouse.domain.Odontologo;
 import com.digitalhouse.domain.Paciente;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PacienteDAOH2Impl implements PacienteDAOH2 {
@@ -90,7 +92,27 @@ public class PacienteDAOH2Impl implements PacienteDAOH2 {
 
     @Override
     public List<Paciente> listarPacientes() {
-        return null;
+        Connection connection = getConexion();
+        List<Paciente> pacientes = new ArrayList<>();
+
+        try {
+
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM PACIENTE");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Paciente paciente = crearObjetoPaciente(resultSet);
+                pacientes.add(paciente);
+            }
+            logger.info("Listado de todos los pacientes: " + pacientes);
+
+
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+        }
+
+        return pacientes;
     }
 
 
@@ -99,4 +121,17 @@ public class PacienteDAOH2Impl implements PacienteDAOH2 {
 
         return Conexion.getConexion();
     }
+
+    private Paciente crearObjetoPaciente(ResultSet resultado) throws SQLException {
+
+        int id = resultado.getInt("id");
+        String nombre = resultado.getString("nombre");
+        String apellido = resultado.getString("apellido");
+        String domicilio = resultado.getString("domicilio");
+        int dni = resultado.getInt("dni");
+        Date fechaAlta = resultado.getDate("fecha_alta");
+
+        return new Paciente(id, nombre, apellido, domicilio, dni, fechaAlta);
+    }
+
 }

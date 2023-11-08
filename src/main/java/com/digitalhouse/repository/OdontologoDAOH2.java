@@ -15,7 +15,7 @@ public interface OdontologoDAOH2 {
 
     void buscarPorId(int id);
 
-    List<Odontologo> listarOdontologos() throws Exception;
+    List<Odontologo> listarOdontologos();
 
     void crearTablaOdontologo() throws Exception;
 

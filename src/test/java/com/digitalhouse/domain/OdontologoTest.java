@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class OdontologoTest {
@@ -44,7 +46,7 @@ public class OdontologoTest {
     @Test
     public void creaTablaEnBaseDeDatos() throws Exception {
 
-        Odontologo odontologo = new Odontologo(3 , 333333, "Marcelo", "Del Canto");
+        Odontologo odontologo = new Odontologo(5 , 333333, "Lucas", "Del Canto");
 
         assertNotNull(odontologo);
 
@@ -54,5 +56,18 @@ public class OdontologoTest {
 
         odontologoTabla.registrar(odontologo);
 
+    }
+
+    @Test
+    public void listarOdontologos() {
+
+            OdontologoDAOH2 odontologoTabla = new OdontologoDAOH2Impl();
+
+            List<Odontologo> odontologos = odontologoTabla.listarOdontologos();
+
+            for (Odontologo odontologo : odontologos) {
+
+                logger.info(odontologo.toString());
+            }
     }
 }

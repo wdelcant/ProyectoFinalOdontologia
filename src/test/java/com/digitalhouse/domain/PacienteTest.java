@@ -1,13 +1,12 @@
 package com.digitalhouse.domain;
 
-import com.digitalhouse.repository.Conexion;
-import com.digitalhouse.repository.PacienteDAOH2;
-import com.digitalhouse.repository.PacienteDAOH2Impl;
+import com.digitalhouse.repository.*;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -51,7 +50,7 @@ public class PacienteTest {
     @Test
     public void creaTablaEnBaseDeDatos() throws Exception {
 
-        Paciente paciente = new Paciente(3, "Wilson", "Del Canto", "Av. Siempre Viva 123", 174533520, new Date());
+        Paciente paciente = new Paciente(30, "Jaime", "Carmen", "julio 1123", 2222222, new Date());
 
         assertNotNull(paciente);
 
@@ -61,6 +60,19 @@ public class PacienteTest {
 
         pacienteTabla.registrar(paciente);
 
+    }
+
+    @Test
+    public void listarPacientes() {
+
+        PacienteDAOH2 pacienteTabla = new PacienteDAOH2Impl();
+
+        List<Paciente> pacientes = pacienteTabla.listarPacientes();
+
+        for (Paciente paciente : pacientes) {
+
+            logger.info(paciente.toString());
+        }
     }
 
 }
