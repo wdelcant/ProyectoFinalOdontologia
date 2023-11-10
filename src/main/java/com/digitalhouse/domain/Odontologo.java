@@ -1,35 +1,34 @@
 package com.digitalhouse.domain;
 
 public class Odontologo {
-    private int id;
-    private int numeroMatricula;
+    private Long id;
     private String nombre;
     private String apellido;
+    private Integer matricula;
+
 
     public Odontologo() {
     }
-    public Odontologo(int id, int numeroMatricula, String nombre, String apellido) {
-        this.id = id;
-        this.numeroMatricula = numeroMatricula;
+
+    public Odontologo(String nombre, String apellido, Integer matricula) {
         this.nombre = nombre;
         this.apellido = apellido;
-
+        this.matricula = matricula;
     }
 
-    public int getId() {
+    public Odontologo(Long id, String nombre, String apellido, Integer matricula) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.matricula = matricula;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getNumeroMatricula() {
-        return numeroMatricula;
-    }
-
-    public void setNumeroMatricula(int numeroMatricula) {
-        this.numeroMatricula = numeroMatricula;
     }
 
     public String getNombre() {
@@ -48,10 +47,21 @@ public class Odontologo {
         this.apellido = apellido;
     }
 
+    public Integer getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(Integer matricula) {
+        this.matricula = matricula;
+    }
+
     @Override
     public String toString() {
-        return "Odontologo :" +
-                nombre + " " + apellido;
-
+        return "Odontologo{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", matricula=" + matricula +
+                '}';
     }
 }

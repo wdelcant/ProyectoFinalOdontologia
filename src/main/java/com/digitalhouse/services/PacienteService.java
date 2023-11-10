@@ -6,11 +6,15 @@ import java.util.List;
 
 public interface PacienteService {
 
-    public void registrarPaciente(Paciente paciente);
+    Paciente registrar(Paciente paciente) throws Exception;
 
-    public void eliminarPaciente(Paciente paciente);
 
-    public List<Paciente> listarPacientes();
+    Paciente buscar(Long id);
 
+    void eliminar(Long id);
+
+    List<Paciente> buscarTodos() ;
+
+    Paciente actualizar(Paciente paciente) throws Exception;
 
 }

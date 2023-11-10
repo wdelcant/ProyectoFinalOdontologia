@@ -1,6 +1,7 @@
 package com.digitalhouse.domain;
 
 import com.digitalhouse.repository.*;
+import com.digitalhouse.repository.impl.PacienteDAOH2Impl;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +27,7 @@ public class PacienteTest {
     @Test
     public void crearClasePaciente() {
 
-        Paciente paciente = new Paciente(2, "Wilson", "Del Canto", "Av. Siempre Viva 123", 222222, null);
+        Paciente paciente = new Paciente();
 
         assertNotNull(paciente);
 
@@ -41,8 +42,6 @@ public class PacienteTest {
 
         PacienteDAOH2 pacienteTabla = new PacienteDAOH2Impl();
 
-        pacienteTabla.crearTablaPaciente();
-
         logger.info("Tabla Paciente creada en la base de datos");
 
     }
@@ -50,7 +49,7 @@ public class PacienteTest {
     @Test
     public void creaTablaEnBaseDeDatos() throws Exception {
 
-        Paciente paciente = new Paciente(30, "Jaime", "Carmen", "julio 1123", 2222222, new Date());
+        Paciente paciente = new Paciente();
 
         assertNotNull(paciente);
 
@@ -67,7 +66,7 @@ public class PacienteTest {
 
         PacienteDAOH2 pacienteTabla = new PacienteDAOH2Impl();
 
-        List<Paciente> pacientes = pacienteTabla.listarPacientes();
+        List<Paciente> pacientes = pacienteTabla.buscarTodos();
 
         for (Paciente paciente : pacientes) {
 

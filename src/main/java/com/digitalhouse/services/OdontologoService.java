@@ -7,13 +7,15 @@ import java.util.List;
 public interface OdontologoService {
 
 
-    public void registrarOdontologo(Odontologo odontologo);
+    Odontologo registrar(Odontologo paciente) throws Exception;
 
-    public void eliminarOdontologo(Odontologo odontologo);
+    public Odontologo buscar(Long id);
 
-    public List<Odontologo> listarOdontologos();
+    public void eliminar(Long id);
 
+    public List<Odontologo> buscarTodos() ;
 
-
-
+    Odontologo actualizar(Odontologo paciente);
 }
+
+

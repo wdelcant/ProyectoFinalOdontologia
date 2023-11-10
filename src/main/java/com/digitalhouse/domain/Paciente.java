@@ -4,29 +4,46 @@ import java.util.Date;
 
 public class Paciente {
 
-    private int id;
+    private Long id;
     private String nombre;
     private String apellido;
-    private String domicilio;
     private Integer dni;
     private Date fechaAlta;
+    private Domicilio domicilio;
 
     public Paciente() {
     }
-    public Paciente(int id, String nombre, String apellido, String domicilio, Integer dni, Date fechaAlta) {
+
+    public Paciente(Long id, String nombre, String apellido, Integer dni, Date fechaAlta, Domicilio domicilio) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.domicilio = domicilio;
         this.dni = dni;
         this.fechaAlta = fechaAlta;
+        this.domicilio = domicilio;
     }
 
-    public int getId() {
+    public Paciente(String nombre, String apellido, Integer dni, Date fechaAlta, Domicilio domicilio) {
+
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.fechaAlta = fechaAlta;
+        this.domicilio = domicilio;
+    }
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -36,22 +53,6 @@ public class Paciente {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getDomicilio() {
-        return domicilio;
-    }
-
-    public void setDomicilio(String domicilio) {
-        this.domicilio = domicilio;
     }
 
     public Integer getDni() {
@@ -70,10 +71,23 @@ public class Paciente {
         this.fechaAlta = fechaAlta;
     }
 
+    public Domicilio getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(Domicilio domicilio) {
+        this.domicilio = domicilio;
+    }
+
     @Override
     public String toString() {
-        return "Paciente :" +
-                nombre + " " + apellido;
-
+        return "Paciente{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", dni='" + dni + '\'' +
+                ", fechaIngreso=" + fechaAlta +
+                ", domicilio=" + domicilio +
+                '}';
     }
 }

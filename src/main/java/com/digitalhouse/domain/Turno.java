@@ -1,29 +1,33 @@
 package com.digitalhouse.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Turno {
-    private int id;
 
+    private Long id;
     private Paciente paciente;
-
     private Odontologo odontologo;
 
-    private Date fecha;
+    private LocalDateTime turno;
 
     public Turno() {
     }
-    public Turno(int id, Paciente paciente, Odontologo odontologo, Date fecha) {
+
+    public Turno(Long idTurno, Paciente paciente, Odontologo odontologo, LocalDateTime turno) {
+
+        this.id = idTurno;
         this.paciente = paciente;
         this.odontologo = odontologo;
-        this.fecha = fecha;
+        this.turno = turno;
+
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -43,11 +47,21 @@ public class Turno {
         this.odontologo = odontologo;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public LocalDateTime getTurno() {
+        return turno;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setTurno(LocalDateTime turno) {
+        this.turno = turno;
+    }
+
+    @Override
+    public String toString() {
+        return "Turno{" +
+                "id=" + id +
+                ", paciente=" + paciente +
+                ", odontologo=" + odontologo +
+                ", turno=" + turno +
+                '}';
     }
 }

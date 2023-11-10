@@ -1,7 +1,7 @@
 package com.digitalhouse.domain;
 
 public class Usuario {
-    private int id;
+    private Long id;
     private String usuario;
 
     private String password;
@@ -11,18 +11,24 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(int id, String usuario, String password, String rol) {
+    public Usuario(String usuario, String password, String rol) {
+        this.usuario = usuario;
+        this.password = password;
+        this.rol = rol;
+    }
+
+    public Usuario(Long id, String usuario, String password, String rol) {
         this.id = id;
         this.usuario = usuario;
         this.password = password;
         this.rol = rol;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -7,19 +7,16 @@ import java.util.List;
 
 public interface PacienteDAOH2 {
 
-    void registrar(Paciente paciente) throws Exception;
+    Paciente registrar(Paciente paciente) throws Exception;
 
-    void actualizar(Paciente paciente);
+    Paciente actualizar(Paciente paciente) throws Exception;
 
-    void eliminar(int id);
+    void eliminar(Long id);
 
-    void buscarPorId(int id);
+    Paciente buscar(Long id);
 
-    List<Paciente> listarPacientes();
+    List<Paciente> buscarTodos();
 
-    void crearTablaPaciente() throws Exception;
-
-    Connection getConexion();
 
 
 }
