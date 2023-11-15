@@ -33,7 +33,6 @@ public class PacienteServiceImpl implements PacienteService {
     public void delete(Long id) {
 
     }
-
     @Override
     public Optional<Paciente> findById(Long id) {
         return Optional.empty();
