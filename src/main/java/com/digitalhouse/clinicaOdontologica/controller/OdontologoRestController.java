@@ -3,14 +3,15 @@ package com.digitalhouse.clinicaOdontologica.controller;
 
 import com.digitalhouse.clinicaOdontologica.domain.Odontologo;
 import com.digitalhouse.clinicaOdontologica.services.OdontologoService;
-import com.digitalhouse.clinicaOdontologica.services.impl.OdontologoServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/odontologos")
@@ -18,53 +19,57 @@ public class OdontologoRestController {
 
     private static Logger logger = LoggerFactory.getLogger(OdontologoRestController.class);
 
-    private OdontologoService odontologoService = new OdontologoServiceImpl();
+    private OdontologoRestController(OdontologoService odontologoService) {
+        this.odontologoService = odontologoService;
+    }
 
     @PostMapping
-    public ResponseEntity<Odontologo> registrarOdontologo(@RequestBody Odontologo odontologo) throws Exception {
-        logger.info("Ingresando a guardar un odontólogo");
-        return ResponseEntity.ok(odontologoService.registrar(odontologo));
+    public ResponseEntity<Odontologo> nuevo(@RequestBody Odontologo odontologo){
+
+        logger.info("Ingreso a nuevo odontologo");
+
+        try {
+            Odontologo odontolo1 = odontologoService.save(odontologo);
+
+            return ResponseEntity.ok(odontolo1);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().header("error", e.getMessage()).build();
+        }
+    }
+
+    @PutMapping
+    public ResponseEntity<Odontologo> editar(@RequestBody Odontologo odontologo){
+
+        Odontologo odontologo1 = odontologoService.update(odontologo);
+
+        return ResponseEntity.ok(odontologo1);
+
+
+    }
+
+
+    @GetMapping
+    public ResponseEntity<List<Odontologo>> buscarTodos(){
+
+        List<Odontologo> odontologos = odontologoService.findAll();
+
+        return ResponseEntity.ok(odontologos);
+
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Odontologo> buscar(@PathVariable Long id) {
-        Odontologo odontologo = odontologoService.buscar(id);
+    public ResponseEntity<Odontologo> findById(@PathVariable Long id){
 
-        return ResponseEntity.ok(odontologo);
-    }
+        Optional<Odontologo> odontologoOptional = odontologoService.findById(id);
 
-    @PutMapping
-    public ResponseEntity<Odontologo> actualizar(@RequestBody Odontologo odontologo) {
-        ResponseEntity<Odontologo> response = null;
-
-        if (odontologo.getId() != null && odontologoService.buscar(odontologo.getId()) != null)
-            response = ResponseEntity.ok(odontologoService.actualizar(odontologo));
-        else
-            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-        return response;
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminar(@PathVariable Long id) {
-        ResponseEntity<String> response = null;
-
-        if (odontologoService.buscar(id) != null) {
-            odontologoService.eliminar(id);
-            response = ResponseEntity.status(HttpStatus.NO_CONTENT).body("Eliminado");
-        } else {
-            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        if(odontologoOptional.isPresent()){
+            return ResponseEntity.ok(odontologoOptional.get());
+        }else{
+            return ResponseEntity.notFound().build();
         }
 
-        return response;
+
     }
 
-    @GetMapping
-    public ResponseEntity<List<Odontologo>> buscarTodos() {
-
-        logger.info("Entrando a listar odontólogo");
-
-        return ResponseEntity.ok(odontologoService.buscarTodos());
-    }
 }

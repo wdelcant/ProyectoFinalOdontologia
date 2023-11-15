@@ -3,10 +3,14 @@ package com.digitalhouse.clinicaOdontologica.services;
 import com.digitalhouse.clinicaOdontologica.domain.Turno;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TurnoService {
-    TurnoDTO crearTurno(Turno turno) throws Exception;
 
-    List<Turno> buscarTodos();
+        Turno save (Turno turno);
+        Turno update (Turno turno);
+        void delete (Long id);
+        Optional<Turno> findById(Long id);
+        List<Turno> findAll();
 }
 

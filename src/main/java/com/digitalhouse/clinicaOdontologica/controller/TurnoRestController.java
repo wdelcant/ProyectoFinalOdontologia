@@ -1,41 +1,81 @@
 package com.digitalhouse.clinicaOdontologica.controller;
 
+
 import com.digitalhouse.clinicaOdontologica.domain.Turno;
-import com.digitalhouse.clinicaOdontologica.services.TurnoDTO;
 import com.digitalhouse.clinicaOdontologica.services.TurnoService;
-import com.digitalhouse.clinicaOdontologica.services.impl.TurnoServiceImpl;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
+import java.util.Optional;
+
+
 
 @RestController
 @RequestMapping("/turnos")
 public class TurnoRestController {
 
-    private final static Logger logger = LoggerFactory.getLogger(TurnoRestController.class);
+    private static Logger logger = LoggerFactory.getLogger(OdontologoRestController.class);
 
-    private final TurnoService turnoService = new TurnoServiceImpl();
+    private TurnoRestController(TurnoService turnoService) {
+        this.turnoService = turnoService;
+    }
 
     @PostMapping
-    public ResponseEntity<TurnoDTO> crearTurno(@RequestBody Turno turno) {
+    public ResponseEntity<Turno> nuevo(@RequestBody Turno turno){
 
-        logger.info("Ingresando a crear un turno " + turno.toString());
+        logger.info("Turno recibido: " + turno.toString());
 
         try {
-            TurnoDTO turno1 = turnoService.crearTurno(turno);
+            Turno turno1 = turnoService.save(turno);
 
             return ResponseEntity.ok(turno1);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return ResponseEntity.badRequest().header("error", e.getMessage()).build();
         }
     }
 
-    @GetMapping
-    public ResponseEntity<List<Turno>> buscarTodos() {
+    @PutMapping
+    public ResponseEntity<Turno> editar(@RequestBody Turno turno){
 
-        return ResponseEntity.ok().body(turnoService.buscarTodos());
+        Turno turno1 = turnoService.update(turno);
+
+        return ResponseEntity.ok(turno1);
+
+
     }
+
+
+    @GetMapping
+    public ResponseEntity<List<Turno>> buscarTodos(){
+
+        List<Turno> turnos = turnoService.findAll();
+
+        return ResponseEntity.ok(turnos);
+
+
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Turno> findById(@PathVariable Long id){
+
+        Optional<Turno> turnoOptional = turnoService.findById(id);
+
+        if(turnoOptional.isPresent()){
+            return ResponseEntity.ok(turnoOptional.get());
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+
+
+    }
+
 }
+
+

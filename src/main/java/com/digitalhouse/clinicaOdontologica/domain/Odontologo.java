@@ -1,6 +1,12 @@
 package com.digitalhouse.clinicaOdontologica.domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "odontologo")
 public class Odontologo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
     private String apellido;

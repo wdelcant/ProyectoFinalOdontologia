@@ -1,9 +1,12 @@
 package com.digitalhouse.clinicaOdontologica.domain;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
-
+@Entity
+@Table(name = "turno")
 public class Turno {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Paciente paciente;
     private Odontologo odontologo;

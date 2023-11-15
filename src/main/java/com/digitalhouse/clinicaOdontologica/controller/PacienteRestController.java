@@ -1,53 +1,78 @@
 package com.digitalhouse.clinicaOdontologica.controller;
 
+
 import com.digitalhouse.clinicaOdontologica.domain.Paciente;
+
 import com.digitalhouse.clinicaOdontologica.services.PacienteService;
-import com.digitalhouse.clinicaOdontologica.services.impl.PacienteServiceImpl;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/pacientes2")
 public class PacienteRestController {
 
-    private PacienteService pacienteServi = new PacienteServiceImpl();
 
-    @GetMapping
-    public ResponseEntity<List<Paciente>> listarPacientes() {
+    private static Logger logger = LoggerFactory.getLogger(OdontologoRestController.class);
 
-        return ResponseEntity.ok(pacienteServi.buscarTodos());
-
-
+    private PacienteRestController(PacienteService pacienteService) {
+        this.pacienteService = pacienteService;
     }
+
 
     @PostMapping
-    public ResponseEntity<Paciente> registrarPaciente(@RequestBody Paciente paciente) {
+    public ResponseEntity<Paciente> nuevo(@RequestBody Paciente paciente){
+
+        logger.info("Paciente recibido: " + paciente.toString());
+
         try {
-            Paciente paciente1 = pacienteServi.registrar(paciente);
+            Paciente paciente1 = pacienteService.save(paciente);
+
             return ResponseEntity.ok(paciente1);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
+        }catch (Exception e){
+            return ResponseEntity.badRequest().header("error", e.getMessage()).build();
         }
+    }
+
+    @PutMapping
+    public ResponseEntity<Paciente> editar(@RequestBody Paciente paciente){
+
+        Paciente paciente1 = pacienteService.update(paciente);
+
+        return ResponseEntity.ok(paciente1);
 
 
     }
 
-    @GetMapping("/eliminar")
-    public ResponseEntity<Paciente> buscarPorid(@RequestParam Long id) {
 
-        Paciente paciente = pacienteServi.buscar(id);
+    @GetMapping
+    public ResponseEntity<List<Paciente>> buscarTodos(){
 
-        if (paciente == null) {
+        List<Paciente> pacientes = pacienteService.findAll();
+
+        return ResponseEntity.ok(pacientes);
+
+
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Paciente> findById(@PathVariable Long id){
+
+        Optional<Paciente> pacienteOptional = pacienteService.findById(id);
+
+        if(pacienteOptional.isPresent()){
+            return ResponseEntity.ok(pacienteOptional.get());
+        }else{
             return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(paciente);
         }
 
 
     }
-
-
 }

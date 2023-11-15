@@ -1,20 +1,17 @@
 package com.digitalhouse.clinicaOdontologica.services;
 
+
 import com.digitalhouse.clinicaOdontologica.domain.Paciente;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PacienteService {
 
-    Paciente registrar(Paciente paciente) throws Exception;
-
-
-    Paciente buscar(Long id);
-
-    void eliminar(Long id);
-
-    List<Paciente> buscarTodos() ;
-
-    Paciente actualizar(Paciente paciente) throws Exception;
+    Paciente save (Paciente paciente);
+    Paciente update (Paciente paciente);
+    void delete (Long id);
+    Optional<Paciente> findById(Long id);
+    List<Paciente> findAll();
 
 }
