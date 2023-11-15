@@ -19,7 +19,9 @@ public class OdontologoRestController {
 
     private static Logger logger = LoggerFactory.getLogger(OdontologoRestController.class);
 
-    private OdontologoRestController(OdontologoService odontologoService) {
+    private final OdontologoService odontologoService;
+
+    public OdontologoRestController(OdontologoService odontologoService) {
         this.odontologoService = odontologoService;
     }
 

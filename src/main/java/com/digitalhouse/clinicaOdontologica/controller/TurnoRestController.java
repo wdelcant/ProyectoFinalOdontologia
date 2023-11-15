@@ -9,9 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +20,7 @@ public class TurnoRestController {
 
     private static Logger logger = LoggerFactory.getLogger(OdontologoRestController.class);
 
+    private final TurnoService turnoService;
     private TurnoRestController(TurnoService turnoService) {
         this.turnoService = turnoService;
     }

@@ -1,14 +1,16 @@
 package com.digitalhouse.clinicaOdontologica.services.impl;
 
-import com.digitalhouse.clinicaOdontologica.controller.OdontologoRestController;
+
 import com.digitalhouse.clinicaOdontologica.domain.Odontologo;
-import com.digitalhouse.clinicaOdontologica.repository.OdontologoDAOH2;
+
 import com.digitalhouse.clinicaOdontologica.repository.OdontologoRepository;
-import com.digitalhouse.clinicaOdontologica.repository.impl.OdontologoDAOH2Impl;
+
 import com.digitalhouse.clinicaOdontologica.services.OdontologoService;
+
 
 import java.util.List;
 import java.util.Optional;
+
 
 public class OdontologoServiceImpl implements OdontologoService {
 

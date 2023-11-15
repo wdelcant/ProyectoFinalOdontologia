@@ -1,15 +1,10 @@
 package com.digitalhouse.clinicaOdontologica.services.impl;
 
-import com.digitalhouse.clinicaOdontologica.controller.TurnoRestController;
-import com.digitalhouse.clinicaOdontologica.domain.Odontologo;
-import com.digitalhouse.clinicaOdontologica.domain.Paciente;
+
 import com.digitalhouse.clinicaOdontologica.domain.Turno;
-import com.digitalhouse.clinicaOdontologica.repository.TurnoDAOH2;
+
 import com.digitalhouse.clinicaOdontologica.repository.TurnoRepository;
-import com.digitalhouse.clinicaOdontologica.repository.impl.TurnoDAOH2Impl;
-import com.digitalhouse.clinicaOdontologica.services.OdontologoService;
-import com.digitalhouse.clinicaOdontologica.services.PacienteService;
-import com.digitalhouse.clinicaOdontologica.services.TurnoDTO;
+
 import com.digitalhouse.clinicaOdontologica.services.TurnoService;
 
 import java.util.List;

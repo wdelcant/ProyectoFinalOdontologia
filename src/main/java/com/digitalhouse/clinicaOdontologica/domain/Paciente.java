@@ -12,6 +12,9 @@ public class Paciente {
     private String apellido;
     private Integer dni;
     private Date fechaAlta;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "domicilio_id", referencedColumnName = "id")
     private Domicilio domicilio;
 
     public Paciente() {

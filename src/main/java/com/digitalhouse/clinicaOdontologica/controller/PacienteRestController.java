@@ -22,6 +22,7 @@ public class PacienteRestController {
 
     private static Logger logger = LoggerFactory.getLogger(OdontologoRestController.class);
 
+    private final PacienteService pacienteService;
     private PacienteRestController(PacienteService pacienteService) {
         this.pacienteService = pacienteService;
     }

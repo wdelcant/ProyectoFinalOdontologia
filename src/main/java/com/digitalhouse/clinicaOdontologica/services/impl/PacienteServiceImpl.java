@@ -1,9 +1,9 @@
 package com.digitalhouse.clinicaOdontologica.services.impl;
 
 import com.digitalhouse.clinicaOdontologica.domain.Paciente;
-import com.digitalhouse.clinicaOdontologica.repository.PacienteDAOH2;
+
 import com.digitalhouse.clinicaOdontologica.repository.PacienteRepository;
-import com.digitalhouse.clinicaOdontologica.repository.impl.PacienteDAOH2Impl;
+
 import com.digitalhouse.clinicaOdontologica.services.PacienteService;
 
 import java.util.List;
