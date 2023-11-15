@@ -9,8 +9,6 @@ import org.slf4j.LoggerFactory;
 public class PacienteTest {
     private final static Logger logger = LoggerFactory.getLogger(Paciente.class);
 
-    @Test
-    public void testRegistrarPaciente() throws Exception {
 
-    }
+
 }

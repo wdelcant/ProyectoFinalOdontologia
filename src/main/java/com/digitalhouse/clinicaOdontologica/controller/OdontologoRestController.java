@@ -31,9 +31,10 @@ public class OdontologoRestController {
         logger.info("Ingreso a nuevo odontologo");
 
         try {
-            Odontologo odontolo1 = odontologoService.save(odontologo);
+            Odontologo odontologo1 = odontologoService.save(odontologo);
 
-            return ResponseEntity.ok(odontolo1);
+            return ResponseEntity.ok(odontologo1);
+
         }catch (Exception e){
             return ResponseEntity.badRequest().header("error", e.getMessage()).build();
         }
@@ -45,8 +46,6 @@ public class OdontologoRestController {
         Odontologo odontologo1 = odontologoService.update(odontologo);
 
         return ResponseEntity.ok(odontologo1);
-
-
     }
 
 
@@ -56,8 +55,6 @@ public class OdontologoRestController {
         List<Odontologo> odontologos = odontologoService.findAll();
 
         return ResponseEntity.ok(odontologos);
-
-
     }
 
     @GetMapping("/{id}")
