@@ -16,7 +16,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/pacientes2")
+@RequestMapping("/pacientes")
 public class PacienteRestController {
 
 
