@@ -6,12 +6,13 @@ import com.digitalhouse.clinicaOdontologica.domain.Odontologo;
 import com.digitalhouse.clinicaOdontologica.repository.OdontologoRepository;
 
 import com.digitalhouse.clinicaOdontologica.services.OdontologoService;
+import org.springframework.stereotype.Service;
 
 
 import java.util.List;
 import java.util.Optional;
 
-
+@Service
 public class OdontologoServiceImpl implements OdontologoService {
 
     private final OdontologoRepository odontologoRepository;

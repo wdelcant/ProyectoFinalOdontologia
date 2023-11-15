@@ -5,10 +5,11 @@ import com.digitalhouse.clinicaOdontologica.domain.Paciente;
 import com.digitalhouse.clinicaOdontologica.repository.PacienteRepository;
 
 import com.digitalhouse.clinicaOdontologica.services.PacienteService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class PacienteServiceImpl implements PacienteService {
 
     private final PacienteRepository pacienteRepository;

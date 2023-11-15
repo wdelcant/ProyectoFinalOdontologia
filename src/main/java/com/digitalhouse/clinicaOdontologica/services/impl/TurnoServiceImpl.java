@@ -6,10 +6,11 @@ import com.digitalhouse.clinicaOdontologica.domain.Turno;
 import com.digitalhouse.clinicaOdontologica.repository.TurnoRepository;
 
 import com.digitalhouse.clinicaOdontologica.services.TurnoService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class TurnoServiceImpl implements TurnoService {
 
     private final TurnoRepository turnoRepository;
