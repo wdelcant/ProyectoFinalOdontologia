@@ -2,15 +2,20 @@ package com.digitalhouse.clinicaOdontologica.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+
 @Entity
 @Table(name = "pacientes")
 public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "nombre", length = 50, nullable = false)
     private String nombre;
+    @Column(name = "apellido", length = 50, nullable = false)
     private String apellido;
+    @Column(name = "dni", length = 10, nullable = false)
     private Integer dni;
+    @Column(name = "fecha_alta", nullable = false)
     private Date fechaAlta;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "domicilio_id", referencedColumnName = "id")
@@ -36,6 +41,7 @@ public class Paciente {
         this.fechaAlta = fechaAlta;
         this.domicilio = domicilio;
     }
+
     public String getApellido() {
         return apellido;
     }

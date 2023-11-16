@@ -8,9 +8,13 @@ public class Domicilio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "calle", length = 100, nullable = false)
     private String calle;
+    @Column(name = "numero" , length = 15, nullable = false)
     private String numero;
+    @Column(name = "localidad" , length = 50, nullable = false)
     private String localidad;
+    @Column(name = "provincia" , length = 50, nullable = false)
     private String provincia;
 
     public Domicilio() {
@@ -23,7 +27,8 @@ public class Domicilio {
         this.localidad = localidad;
         this.provincia = provincia;
     }
-    public Domicilio( String calle, String numero, String localidad, String provincia) {
+
+    public Domicilio(String calle, String numero, String localidad, String provincia) {
         this.calle = calle;
         this.numero = numero;
         this.localidad = localidad;

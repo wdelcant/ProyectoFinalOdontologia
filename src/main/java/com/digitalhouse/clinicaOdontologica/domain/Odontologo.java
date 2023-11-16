@@ -8,8 +8,11 @@ public class Odontologo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "nombre", length = 50, nullable = false)
     private String nombre;
+    @Column(name = "apellido", length = 50, nullable = false)
     private String apellido;
+    @Column(name = "matricula", length = 10, nullable = false)
     private Integer matricula;
 
 

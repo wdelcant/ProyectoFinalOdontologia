@@ -8,11 +8,15 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "usuario", length = 50, nullable = false)
     private String usuario;
 
+    @Column(name = "password", length = 50, nullable = false)
     private String password;
 
+    @Column(name = "rol")
     private String rol;
+
 
     public Usuario() {
     }
