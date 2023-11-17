@@ -30,7 +30,9 @@ public class OdontologoServiceImpl implements OdontologoService {
 
     @Override
     public Odontologo update(Odontologo odontologo) {
-        return null;
+
+        return odontologoRepository.save(odontologo);
+
     }
 
     @Override

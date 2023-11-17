@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-
-
 @RestController
 @RequestMapping("/turnos")
 public class TurnoRestController {
@@ -73,7 +71,6 @@ public ResponseEntity<Turno> asignarTurno(@PathVariable Long pacienteId, @PathVa
         Turno turno = turnoService.asignarTurno(pacienteId, turnoId);
         return ResponseEntity.ok(turno);
     }
-
 }
 
 

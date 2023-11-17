@@ -40,7 +40,8 @@ public class PacienteServiceImpl implements PacienteService {
 
     @Override
     public Paciente update(Paciente paciente) {
-        return null;
+
+        return pacienteRepository.save(paciente);
     }
 
     @Override
