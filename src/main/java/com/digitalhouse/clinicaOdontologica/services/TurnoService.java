@@ -1,5 +1,6 @@
 package com.digitalhouse.clinicaOdontologica.services;
 
+import com.digitalhouse.clinicaOdontologica.domain.Paciente;
 import com.digitalhouse.clinicaOdontologica.domain.Turno;
 
 import java.util.List;
@@ -12,5 +13,7 @@ public interface TurnoService {
         void delete (Long id);
         Optional<Turno> findById(Long id);
         List<Turno> findAll();
+
+        Turno asignarTurno(Long pacienteId, Long turnoId);
 }
 

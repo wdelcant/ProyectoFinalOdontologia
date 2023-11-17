@@ -4,31 +4,22 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "turno")
+@Table(name = "turnos")
 public class Turno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "paciente_id", referencedColumnName = "id")
     private Paciente paciente;
     @ManyToOne
-    @JoinColumn(name = "odontologo_id", referencedColumnName = "id")
+    @JoinColumn(name = "odontologo_id", referencedColumnName = "id", nullable = false)
     private Odontologo odontologo;
-    @Column(name = "turno")
-    private LocalDateTime turno;
+    @Column(name = "fecha_hora", nullable = false)
+    private LocalDateTime fechaHora;
 
     public Turno() {
     }
 
-    public Turno(Long idTurno, Paciente paciente, Odontologo odontologo, LocalDateTime turno) {
-
-        this.id = idTurno;
-        this.paciente = paciente;
-        this.odontologo = odontologo;
-        this.turno = turno;
-
-    }
 
     public Long getId() {
         return id;
@@ -54,12 +45,12 @@ public class Turno {
         this.odontologo = odontologo;
     }
 
-    public LocalDateTime getTurno() {
-        return turno;
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
     }
 
-    public void setTurno(LocalDateTime turno) {
-        this.turno = turno;
+    public void setFechaHora(LocalDateTime fecha_hora) {
+        this.fechaHora = fecha_hora;
     }
 
     @Override
@@ -68,7 +59,7 @@ public class Turno {
                 "id=" + id +
                 ", paciente=" + paciente +
                 ", odontologo=" + odontologo +
-                ", turno=" + turno +
+                ", turno=" + fechaHora +
                 '}';
     }
 }

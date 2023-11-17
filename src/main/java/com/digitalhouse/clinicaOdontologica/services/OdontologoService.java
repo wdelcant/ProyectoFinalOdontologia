@@ -8,10 +8,14 @@ import java.util.Optional;
 
 public interface OdontologoService {
 
-    Odontologo save (Odontologo odontologo);
-    Odontologo update (Odontologo odontologo);
+    Odontologo save(Odontologo odontologo);
+
+    Odontologo update(Odontologo odontologo);
+
     Optional<Odontologo> findById(Long id);
-    void delete (Long id);
+
+    void delete(Long id);
+
     List<Odontologo> findAll();
 
 }

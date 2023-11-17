@@ -9,10 +9,12 @@ import com.digitalhouse.clinicaOdontologica.services.OdontologoService;
 import org.springframework.stereotype.Service;
 
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class OdontologoServiceImpl implements OdontologoService {
 
     private final OdontologoRepository odontologoRepository;
@@ -33,16 +35,17 @@ public class OdontologoServiceImpl implements OdontologoService {
 
     @Override
     public Optional<Odontologo> findById(Long id) {
-        return Optional.empty();
+        return odontologoRepository.findById(id);
     }
 
     @Override
     public void delete(Long id) {
-
+        odontologoRepository.deleteById(id);
     }
 
     @Override
     public List<Odontologo> findAll() {
-        return odontologoRepository.findAll();
+        List<Odontologo> odontologos =  odontologoRepository.findAll();
+        return odontologos;
     }
 }

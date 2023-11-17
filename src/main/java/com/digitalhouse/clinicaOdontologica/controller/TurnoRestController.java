@@ -1,6 +1,7 @@
 package com.digitalhouse.clinicaOdontologica.controller;
 
 
+import com.digitalhouse.clinicaOdontologica.domain.Paciente;
 import com.digitalhouse.clinicaOdontologica.domain.Turno;
 import com.digitalhouse.clinicaOdontologica.services.TurnoService;
 
@@ -45,10 +46,7 @@ public class TurnoRestController {
         Turno turno1 = turnoService.update(turno);
 
         return ResponseEntity.ok(turno1);
-
-
     }
-
 
     @GetMapping
     public ResponseEntity<List<Turno>> buscarTodos(){
@@ -56,8 +54,6 @@ public class TurnoRestController {
         List<Turno> turnos = turnoService.findAll();
 
         return ResponseEntity.ok(turnos);
-
-
     }
 
     @GetMapping("/{id}")
@@ -70,8 +66,12 @@ public class TurnoRestController {
         }else{
             return ResponseEntity.notFound().build();
         }
+    }
 
-
+    @PutMapping("/{pacienteId}/{turnoId}")
+public ResponseEntity<Turno> asignarTurno(@PathVariable Long pacienteId, @PathVariable Long turnoId) {
+        Turno turno = turnoService.asignarTurno(pacienteId, turnoId);
+        return ResponseEntity.ok(turno);
     }
 
 }

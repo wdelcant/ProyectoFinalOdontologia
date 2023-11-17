@@ -1,5 +1,7 @@
 package com.digitalhouse.clinicaOdontologica.domain;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,11 +10,15 @@ public class Odontologo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "nombre", length = 50, nullable = false)
+    @NotNull
     private String nombre;
     @Column(name = "apellido", length = 50, nullable = false)
+    @NotNull
     private String apellido;
     @Column(name = "matricula", length = 10, nullable = false)
+    @NotNull
     private Integer matricula;
 
 
@@ -25,12 +31,6 @@ public class Odontologo {
         this.matricula = matricula;
     }
 
-    public Odontologo(Long id, String nombre, String apellido, Integer matricula) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.matricula = matricula;
-    }
 
     public Long getId() {
         return id;

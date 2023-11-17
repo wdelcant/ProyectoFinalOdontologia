@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "domicilio")
 public class Domicilio {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Autoincremental
     private Long id;
     @Column(name = "calle", length = 100, nullable = false)
     private String calle;
@@ -18,14 +18,6 @@ public class Domicilio {
     private String provincia;
 
     public Domicilio() {
-    }
-
-    public Domicilio(Long id, String calle, String numero, String localidad, String provincia) {
-        this.id = id;
-        this.calle = calle;
-        this.numero = numero;
-        this.localidad = localidad;
-        this.provincia = provincia;
     }
 
     public Domicilio(String calle, String numero, String localidad, String provincia) {

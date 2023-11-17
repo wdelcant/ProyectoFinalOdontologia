@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,22 +27,29 @@ public class OdontologoRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Odontologo> nuevo(@RequestBody Odontologo odontologo){
+    public ResponseEntity<Odontologo> nuevo(@RequestBody Odontologo odontologo) {
 
         logger.info("Ingreso a nuevo odontologo");
 
         try {
             Odontologo odontologo1 = odontologoService.save(odontologo);
 
+            logger.info("Se creo el odontologo con exito");
+
             return ResponseEntity.ok(odontologo1);
 
-        }catch (Exception e){
+        } catch (Exception e) {
+            logger.error("Error al crear el odontologo", e.getMessage());
+
             return ResponseEntity.badRequest().header("error", e.getMessage()).build();
+
         }
     }
 
     @PutMapping
-    public ResponseEntity<Odontologo> editar(@RequestBody Odontologo odontologo){
+    public ResponseEntity<Odontologo> editar(@RequestBody Odontologo odontologo) {
+
+        logger.info("Ingreso a editar odontologo");
 
         Odontologo odontologo1 = odontologoService.update(odontologo);
 
@@ -50,7 +58,9 @@ public class OdontologoRestController {
 
 
     @GetMapping
-    public ResponseEntity<List<Odontologo>> buscarTodos(){
+    public ResponseEntity<List<Odontologo>> buscarTodos() {
+
+        logger.info("Ingreso a buscar todos los odontologos");
 
         List<Odontologo> odontologos = odontologoService.findAll();
 
@@ -58,17 +68,26 @@ public class OdontologoRestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Odontologo> findById(@PathVariable Long id){
+    public ResponseEntity<Odontologo> findById(@PathVariable Long id) {
 
         Optional<Odontologo> odontologoOptional = odontologoService.findById(id);
 
-        if(odontologoOptional.isPresent()){
+        if (odontologoOptional.isPresent()) {
+            logger.info("Se encontro el odontologo con id: " + id);
             return ResponseEntity.ok(odontologoOptional.get());
-        }else{
+        } else {
+            logger.error("No se encontro el odontologo con id: " + id);
             return ResponseEntity.notFound().build();
         }
-
-
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        try {
+            odontologoService.delete(id);
+            return ResponseEntity.ok().build();
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatus()).build();
+        }
+    }
 }

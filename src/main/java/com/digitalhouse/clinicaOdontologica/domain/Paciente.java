@@ -1,5 +1,7 @@
 package com.digitalhouse.clinicaOdontologica.domain;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -10,27 +12,21 @@ public class Paciente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "nombre", length = 50, nullable = false)
+    @NotNull
     private String nombre;
     @Column(name = "apellido", length = 50, nullable = false)
+    @NotNull
     private String apellido;
     @Column(name = "dni", length = 10, nullable = false)
+    @NotNull
     private Integer dni;
-    @Column(name = "fecha_alta", nullable = false)
+    @Column(name = "fecha_alta")
     private Date fechaAlta;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "domicilio_id", referencedColumnName = "id")
     private Domicilio domicilio;
 
     public Paciente() {
-    }
-
-    public Paciente(Long id, String nombre, String apellido, Integer dni, Date fechaAlta, Domicilio domicilio) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
-        this.fechaAlta = fechaAlta;
-        this.domicilio = domicilio;
     }
 
     public Paciente(String nombre, String apellido, Integer dni, Date fechaAlta, Domicilio domicilio) {
