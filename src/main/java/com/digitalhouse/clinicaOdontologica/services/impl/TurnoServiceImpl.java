@@ -38,7 +38,8 @@ public class TurnoServiceImpl implements TurnoService {
 
     @Override
     public Turno update(Turno turno) {
-        return null;
+
+            return turnoRepository.save(turno);
     }
 
     @Override

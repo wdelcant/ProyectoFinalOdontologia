@@ -85,8 +85,10 @@ public class OdontologoRestController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         try {
             odontologoService.delete(id);
+            logger.info("Se elimino el odontologo con id: " + id);
             return ResponseEntity.ok().build();
         } catch (ResponseStatusException e) {
+            logger.error("No se encontro el odontologo con id: " + id);
             return ResponseEntity.status(e.getStatus()).build();
         }
     }

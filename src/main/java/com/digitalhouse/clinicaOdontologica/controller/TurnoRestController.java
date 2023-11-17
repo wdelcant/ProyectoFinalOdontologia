@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,12 +21,13 @@ public class TurnoRestController {
     private static Logger logger = LoggerFactory.getLogger(OdontologoRestController.class);
 
     private final TurnoService turnoService;
+
     private TurnoRestController(TurnoService turnoService) {
         this.turnoService = turnoService;
     }
 
     @PostMapping
-    public ResponseEntity<Turno> nuevo(@RequestBody Turno turno){
+    public ResponseEntity<Turno> nuevo(@RequestBody Turno turno) {
 
         logger.info("Turno recibido: " + turno.toString());
 
@@ -33,13 +35,13 @@ public class TurnoRestController {
             Turno turno1 = turnoService.save(turno);
 
             return ResponseEntity.ok(turno1);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().header("error", e.getMessage()).build();
         }
     }
 
     @PutMapping
-    public ResponseEntity<Turno> editar(@RequestBody Turno turno){
+    public ResponseEntity<Turno> editar(@RequestBody Turno turno) {
 
         Turno turno1 = turnoService.update(turno);
 
@@ -47,7 +49,7 @@ public class TurnoRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Turno>> buscarTodos(){
+    public ResponseEntity<List<Turno>> buscarTodos() {
 
         List<Turno> turnos = turnoService.findAll();
 
@@ -55,21 +57,33 @@ public class TurnoRestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Turno> findById(@PathVariable Long id){
+    public ResponseEntity<Turno> findById(@PathVariable Long id) {
 
         Optional<Turno> turnoOptional = turnoService.findById(id);
 
-        if(turnoOptional.isPresent()){
+        if (turnoOptional.isPresent()) {
             return ResponseEntity.ok(turnoOptional.get());
-        }else{
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
 
     @PutMapping("/{pacienteId}/{turnoId}")
-public ResponseEntity<Turno> asignarTurno(@PathVariable Long pacienteId, @PathVariable Long turnoId) {
+    public ResponseEntity<Turno> asignarTurno(@PathVariable Long pacienteId, @PathVariable Long turnoId) {
         Turno turno = turnoService.asignarTurno(pacienteId, turnoId);
         return ResponseEntity.ok(turno);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        try {
+            turnoService.delete(id);
+            logger.info("Se elimino el turno con id: " + id);
+            return ResponseEntity.ok().build();
+        } catch (ResponseStatusException e) {
+            logger.error("No se encontro el turno con id: " + id);
+            return ResponseEntity.status(e.getStatus()).build();
+        }
     }
 }
 

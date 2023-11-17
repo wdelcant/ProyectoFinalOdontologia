@@ -90,8 +90,10 @@ public class PacienteRestController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         try {
             pacienteService.delete(id);
+            logger.info("Se elimino el paciente con id: " + id);
             return ResponseEntity.ok().build();
         } catch (ResponseStatusException e) {
+            logger.error("No se encontro el paciente con id: " + id);
             return ResponseEntity.status(e.getStatus()).build();
         }
     }
