@@ -18,6 +18,8 @@ public interface OdontologoService {
 
     List<Odontologo> findAll();
 
+    Optional<Odontologo> findByMatricula(Integer matricula);
+
 }
 
 

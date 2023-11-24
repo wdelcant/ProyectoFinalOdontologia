@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -25,6 +26,18 @@ public class OdontologoServiceImpl implements OdontologoService {
 
     @Override
     public Odontologo save(Odontologo odontologo) {
+
+        Objects.requireNonNull(odontologo, "El odontologo no puede ser nulo");
+        Objects.requireNonNull(odontologo.getNombre(), "El nombre del odontologo no puede ser nulo");
+        Objects.requireNonNull(odontologo.getApellido(), "El apellido del odontologo no puede ser nulo");
+        Objects.requireNonNull(odontologo.getMatricula(), "La matricula del odontologo no puede ser nula");
+
+        Odontologo odontologoExistente = odontologoRepository.findByMatricula(odontologo.getMatricula());
+
+        if (odontologoExistente != null) {
+            throw new RuntimeException("Ya existe un odontologo con esa matricula");
+        }
+
         return odontologoRepository.save(odontologo);
     }
 
@@ -47,7 +60,12 @@ public class OdontologoServiceImpl implements OdontologoService {
 
     @Override
     public List<Odontologo> findAll() {
-        List<Odontologo> odontologos =  odontologoRepository.findAll();
+        List<Odontologo> odontologos = odontologoRepository.findAll();
         return odontologos;
+    }
+
+    @Override
+    public Optional<Odontologo> findByMatricula(Integer matricula) {
+        return Optional.ofNullable(odontologoRepository.findByMatricula(matricula));
     }
 }

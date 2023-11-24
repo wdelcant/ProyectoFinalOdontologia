@@ -31,16 +31,19 @@ public class PacienteServiceImpl implements PacienteService {
     public Paciente save(Paciente paciente) {
         Objects.requireNonNull(paciente, "El paciente no puede ser nulo");
         Objects.requireNonNull(paciente.getDni(), "El dni no puede ser nulo");
-        // agregar fecha de alta
+        // setea fecha de alta automaticamente
         paciente.setFechaAlta(Date.from(LocalDateTime.now().toInstant(java.time.ZoneOffset.UTC)));
 
+        Paciente pacienteExistente = pacienteRepository.findByDni(paciente.getDni());
 
+        if (pacienteExistente != null) {
+            throw new RuntimeException("Ya existe un paciente con ese dni");
+        }
         return pacienteRepository.save(paciente);
     }
 
     @Override
     public Paciente update(Paciente paciente) {
-
         return pacienteRepository.save(paciente);
     }
 
@@ -60,5 +63,9 @@ public class PacienteServiceImpl implements PacienteService {
         return cuentas;
     }
 
+    @Override
+    public Optional<Paciente> findByDni(Integer dni) {
+        return Optional.ofNullable(pacienteRepository.findByDni(dni));
+    }
 
 }

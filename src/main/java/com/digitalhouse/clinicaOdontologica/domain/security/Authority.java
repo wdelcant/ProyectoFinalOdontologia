@@ -13,6 +13,7 @@ public class Authority {
     private Roles authority;
 
     @ManyToOne
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     public Long getId() {

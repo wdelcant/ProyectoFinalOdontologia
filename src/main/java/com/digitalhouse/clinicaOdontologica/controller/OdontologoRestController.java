@@ -57,7 +57,7 @@ public class OdontologoRestController {
     }
 
 
-    @GetMapping
+    @GetMapping // localhost:8080/odontologos (GET) -S
     public ResponseEntity<List<Odontologo>> buscarTodos() {
 
         logger.info("Ingreso a buscar todos los odontologos");

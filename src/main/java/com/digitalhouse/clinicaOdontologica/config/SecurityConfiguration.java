@@ -56,7 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         userService.createUser(user);
 
         UserDetails user2 = User.builder()
-                .username("user")
+                .username("paciente")
                 .password(passwordEncoder().encode("123456"))
                 .roles("USER")
                 .build();

@@ -16,6 +16,9 @@ public interface PacienteService {
 
     Optional<Paciente> findById(Long id);
 
+    Optional<Paciente> findByDni(Integer dni);
+
     List<Paciente> findAll();
+
 
 }
