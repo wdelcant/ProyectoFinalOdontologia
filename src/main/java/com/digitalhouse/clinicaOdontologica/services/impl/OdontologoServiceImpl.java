@@ -32,10 +32,10 @@ public class OdontologoServiceImpl implements OdontologoService {
         Objects.requireNonNull(odontologo.getApellido(), "El apellido del odontologo no puede ser nulo");
         Objects.requireNonNull(odontologo.getMatricula(), "La matricula del odontologo no puede ser nula");
 
-        Odontologo odontologoExistente = odontologoRepository.findByMatricula(odontologo.getMatricula());
+        Optional<Odontologo> odontologoOptional = findByMatricula(odontologo.getMatricula());
 
-        if (odontologoExistente != null) {
-            throw new RuntimeException("Ya existe un odontologo con esa matricula");
+        if(odontologoOptional.isPresent()){
+            throw new RuntimeException("Ya existe un odontólogo con esa matrícula");
         }
 
         return odontologoRepository.save(odontologo);
@@ -54,6 +54,11 @@ public class OdontologoServiceImpl implements OdontologoService {
     }
 
     @Override
+    public Optional<Odontologo> findByMatricula(Integer matricula) {
+        return odontologoRepository.findByMatricula(matricula);
+    }
+
+    @Override
     public void delete(Long id) {
         odontologoRepository.deleteById(id);
     }
@@ -64,8 +69,5 @@ public class OdontologoServiceImpl implements OdontologoService {
         return odontologos;
     }
 
-    @Override
-    public Optional<Odontologo> findByMatricula(Integer matricula) {
-        return Optional.ofNullable(odontologoRepository.findByMatricula(matricula));
-    }
+
 }

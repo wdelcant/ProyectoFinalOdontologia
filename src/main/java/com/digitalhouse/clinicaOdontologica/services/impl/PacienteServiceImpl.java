@@ -34,9 +34,9 @@ public class PacienteServiceImpl implements PacienteService {
         // setea fecha de alta automaticamente
         paciente.setFechaAlta(Date.from(LocalDateTime.now().toInstant(java.time.ZoneOffset.UTC)));
 
-        Paciente pacienteExistente = pacienteRepository.findByDni(paciente.getDni());
+        Optional<Paciente> pacienteOptional = findByDni(paciente.getDni());
 
-        if (pacienteExistente != null) {
+        if (pacienteOptional.isPresent()) {
             throw new RuntimeException("Ya existe un paciente con ese dni");
         }
         return pacienteRepository.save(paciente);
@@ -58,14 +58,16 @@ public class PacienteServiceImpl implements PacienteService {
     }
 
     @Override
+    public Optional<Paciente> findByDni(Integer dni) {
+        return pacienteRepository.findByDni(dni);
+    }
+
+    @Override
     public List<Paciente> findAll() {
         List<Paciente> cuentas = pacienteRepository.findAll();
         return cuentas;
     }
 
-    @Override
-    public Optional<Paciente> findByDni(Integer dni) {
-        return Optional.ofNullable(pacienteRepository.findByDni(dni));
-    }
+
 
 }
