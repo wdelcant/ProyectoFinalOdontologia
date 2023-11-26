@@ -3,10 +3,10 @@ window.addEventListener('load', function () {
 
     //Buscamos y obtenemos el formulario donde estan
     //los datos que el usuario pudo haber modificado de la pelicula
-    const formulario = document.querySelector('#update_pelicula_form');
+    const formulario = document.querySelector('#update_pecientes_form');
 
     formulario.addEventListener('submit', function (event) {
-        let peliculaId = document.querySelector('#pelicula_id').value;
+        let peliculaId = document.querySelector('#pacientes_id').value;
 
         //creamos un JSON que tendrá los datos de la película
         //a diferencia de una pelicula nueva en este caso enviamos el id
@@ -21,7 +21,7 @@ window.addEventListener('load', function () {
 
         //invocamos utilizando la función fetch la API peliculas con el método PUT que modificará
         //la película que enviaremos en formato JSON
-        const url = '/peliculas';
+        const url = '/pacientes';
         const settings = {
             method: 'PUT',
             headers: {
