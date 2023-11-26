@@ -12,16 +12,15 @@ import java.util.Optional;
 @Service
 @Transactional
 public class AuthorityServiceImpl implements AuthorityService {
+    private final AuthoritiesRepository authoritiesRespository;
 
-    private final AuthoritiesRepository authoritiesRepository;
-
-    public AuthorityServiceImpl(AuthoritiesRepository authoritiesRepository) {
-        this.authoritiesRepository = authoritiesRepository;
+    public AuthorityServiceImpl(AuthoritiesRepository authoritiesRespository) {
+        this.authoritiesRespository = authoritiesRespository;
     }
 
     @Override
     public Authority save(Authority authority) {
-        return authoritiesRepository.save(authority);
+        return authoritiesRespository.save(authority);
     }
 
     @Override

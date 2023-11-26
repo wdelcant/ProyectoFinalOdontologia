@@ -8,12 +8,17 @@ window.addEventListener('load', function () {
     formulario.addEventListener('submit', function (event) {
 
        //creamos un JSON que tendrá los datos de la nueva película
-        const formData = {
-            nombre: document.querySelector('#nombre').value,
-            apellido: document.querySelector('#apellido').value,
-            dni: document.querySelector('#dni').value,
-
-        };
+    const formData = {
+        nombre: document.querySelector('#nombre').value,
+        apellido: document.querySelector('#apellido').value,
+        dni: document.querySelector('#dni').value,
+        domicilio: {
+            calle: document.querySelector('#calle').value,
+            numero: document.querySelector('#numero').value,
+            localidad: document.querySelector('#localidad').value,
+            provincia: document.querySelector('#provincia').value
+        }
+    };
         //invocamos utilizando la función fetch la API peliculas con el método POST que guardará
         //la película que enviaremos en formato JSON
         const url = '/pacientes';

@@ -8,6 +8,7 @@ import com.digitalhouse.clinicaOdontologica.services.AuthorityService;
 import com.digitalhouse.clinicaOdontologica.services.UserService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
 
     private final AuthorityService authorityService;
@@ -83,4 +84,5 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+
 }
