@@ -46,20 +46,22 @@ public class SecurityConfiguration {
         return authenticationManagerBuilder.build();
     }
 
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http.cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .antMatchers(HttpMethod.GET, "/odontologos/**").hasRole("ADMIN")
-                        .antMatchers(HttpMethod.GET, "/odontologos/**").hasRole("USER")
-
-                        .antMatchers("/pacientes/**").hasRole("ADMIN")
-                        .antMatchers("/checkAuthenticated/**").authenticated()
-                        .antMatchers(HttpMethod.POST,"/authenticate**").permitAll())
+                        .requestMatchers(HttpMethod.GET, "/odontologos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/odontologos/**").hasRole("USER")
+                        .requestMatchers("/pacientes/**").hasRole("ADMIN")
+                        .requestMatchers("/checkAuthenticated/**").authenticated()
+                        .requestMatchers("/authenticate/**","/swagger-ui/**","/v3/api-docs",
+                                "/auth/v1/login",
+                                "/view**","/view/**",
+                                "/v3/api-docs/swagger-config")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.POST,"/authenticate**").permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .userDetailsService(userService)

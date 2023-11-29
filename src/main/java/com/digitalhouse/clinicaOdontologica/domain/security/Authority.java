@@ -1,6 +1,6 @@
 package com.digitalhouse.clinicaOdontologica.domain.security;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Authority {

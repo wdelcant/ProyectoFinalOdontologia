@@ -7,6 +7,7 @@ import com.digitalhouse.clinicaOdontologica.services.TurnoService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -75,15 +76,16 @@ public class TurnoRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        try {
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        ResponseEntity<String> response = null;
+
+        if (turnoService.findById(id).isPresent()) {
             turnoService.delete(id);
-            logger.info("Se elimino el turno con id: " + id);
-            return ResponseEntity.ok().build();
-        } catch (ResponseStatusException e) {
-            logger.error("No se encontro el turno con id: " + id);
-            return ResponseEntity.status(e.getStatus()).build();
+            response = ResponseEntity.status(HttpStatus.NO_CONTENT).body("Eliminado");
+        } else {
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+        return response;
     }
 }
 

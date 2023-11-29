@@ -5,7 +5,7 @@ import com.digitalhouse.clinicaOdontologica.repository.AuthoritiesRepository;
 import com.digitalhouse.clinicaOdontologica.services.AuthorityService;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 

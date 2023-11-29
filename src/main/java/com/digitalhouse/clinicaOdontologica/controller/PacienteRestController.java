@@ -5,6 +5,7 @@ import com.digitalhouse.clinicaOdontologica.domain.Paciente;
 
 import com.digitalhouse.clinicaOdontologica.services.PacienteService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -87,15 +88,16 @@ public class PacienteRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        try {
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        ResponseEntity<String> response = null;
+
+        if (pacienteService.findById(id).isPresent()) {
             pacienteService.delete(id);
-            logger.info("Se elimino el paciente con id: " + id);
-            return ResponseEntity.ok().build();
-        } catch (ResponseStatusException e) {
-            logger.error("No se encontro el paciente con id: " + id);
-            return ResponseEntity.status(e.getStatus()).build();
+            response = ResponseEntity.status(HttpStatus.NO_CONTENT).body("Eliminado");
+        } else {
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+        return response;
     }
 
 

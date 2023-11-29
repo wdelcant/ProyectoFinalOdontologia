@@ -1,6 +1,6 @@
 package com.digitalhouse.clinicaOdontologica.domain;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "domicilio")
@@ -8,23 +8,16 @@ public class Domicilio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Autoincremental
     private Long id;
-    @Column(name = "calle", length = 100, nullable = false)
+    @Column(name = "calle", length = 100)
     private String calle;
-    @Column(name = "numero" , length = 15, nullable = false)
+    @Column(name = "numero" , length = 15)
     private String numero;
-    @Column(name = "localidad" , length = 50, nullable = false)
+    @Column(name = "localidad" , length = 50)
     private String localidad;
-    @Column(name = "provincia" , length = 50, nullable = false)
+    @Column(name = "provincia" , length = 50)
     private String provincia;
 
     public Domicilio() {
-    }
-
-    public Domicilio(String calle, String numero, String localidad, String provincia) {
-        this.calle = calle;
-        this.numero = numero;
-        this.localidad = localidad;
-        this.provincia = provincia;
     }
 
     public Long getId() {

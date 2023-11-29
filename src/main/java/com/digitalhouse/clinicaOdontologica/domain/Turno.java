@@ -1,6 +1,6 @@
 package com.digitalhouse.clinicaOdontologica.domain;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,14 +12,13 @@ public class Turno {
     @ManyToOne
     private Paciente paciente;
     @ManyToOne
-    @JoinColumn(name = "odontologo_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "odontologo_id", referencedColumnName = "id")
     private Odontologo odontologo;
-    @Column(name = "fecha_hora", nullable = false)
+    @Column(name = "fecha_hora")
     private LocalDateTime fechaHora;
 
     public Turno() {
     }
-
 
     public Long getId() {
         return id;

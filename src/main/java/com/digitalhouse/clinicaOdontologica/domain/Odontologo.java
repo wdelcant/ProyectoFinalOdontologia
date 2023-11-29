@@ -1,8 +1,6 @@
 package com.digitalhouse.clinicaOdontologica.domain;
 
-import com.sun.istack.NotNull;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "odontologo")
@@ -11,26 +9,16 @@ public class Odontologo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre", length = 50, nullable = false)
-    @NotNull
+    @Column(name = "nombre", length = 50)
     private String nombre;
-    @Column(name = "apellido", length = 50, nullable = false)
-    @NotNull
+    @Column(name = "apellido", length = 50)
     private String apellido;
-    @Column(name = "matricula", length = 10, nullable = false)
-    @NotNull
+    @Column(name = "matricula", length = 10)
     private Integer matricula;
 
 
     public Odontologo() {
     }
-
-    public Odontologo(String nombre, String apellido, Integer matricula) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.matricula = matricula;
-    }
-
 
     public Long getId() {
         return id;
