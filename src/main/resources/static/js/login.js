@@ -18,7 +18,9 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     .then(data => {
         if (data.success) {
             // Inicio de sesión exitoso
-            // Redirigir al usuario a la página principal o mostrar un mensaje de éxitoS
+            // Guardar el token en el almacenamiento local
+            localStorage.setItem('token', data.token);
+            // Redirigir al usuario a la página principal o mostrar un mensaje de éxito
         } else {
             // Inicio de sesión fallido
             // Mostrar un mensaje de error al usuario

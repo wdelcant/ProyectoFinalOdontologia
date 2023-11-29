@@ -36,7 +36,7 @@ public class PacienteServiceImpl implements PacienteService {
 
         Optional<Paciente> pacienteOptional = findByDni(paciente.getDni());
 
-        if (pacienteOptional.isPresent()) {
+        if (paciente.getDni() == null && pacienteOptional.isPresent()) {
             throw new RuntimeException("Ya existe un paciente con ese dni");
         }
         return pacienteRepository.save(paciente);
