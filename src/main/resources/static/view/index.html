@@ -8,14 +8,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/post_pacientes.js"></script>
+
+    <script type="module">
+        import { checkAuthentication } from './js/login.js';
+        checkAuthentication();
+    </script>
 </head>
 <body>
 <div class="container">
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <a class="nav-link" href="/pacienteList.html">Listado de Pacientes</a>
-            <a class="nav-link" href="/pacienteAlta.html">Alta de Pacientes</a>
+            <a class="nav-link" href="/view/pacienteList.html">Listado de Pacientes</a>
+            <a class="nav-link" href="/view/pacienteAlta.html">Alta de Pacientes</a>
+            <a class="nav-link" href="/view/odontologoList.html">Listado de Odontologos</a>
         </li>
     </ul>
 
