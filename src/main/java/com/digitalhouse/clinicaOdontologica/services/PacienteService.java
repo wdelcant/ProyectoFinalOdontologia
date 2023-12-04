@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface PacienteService {
 
-    Paciente save(Paciente paciente);
+    Paciente save(Paciente paciente) throws Exception;
 
-    Paciente update(Paciente paciente);
+    Paciente update(Paciente paciente) throws Exception;
 
     void delete(Long id);
 
@@ -19,6 +19,8 @@ public interface PacienteService {
     Optional<Paciente> findByDni(Integer dni);
 
     List<Paciente> findAll();
+
+    Paciente registrarPaciente(Paciente paciente) throws Exception;
 
 
 }

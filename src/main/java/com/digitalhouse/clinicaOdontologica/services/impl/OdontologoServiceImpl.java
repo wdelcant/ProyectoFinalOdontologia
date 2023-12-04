@@ -6,6 +6,7 @@ import com.digitalhouse.clinicaOdontologica.domain.Odontologo;
 import com.digitalhouse.clinicaOdontologica.repository.OdontologoRepository;
 
 import com.digitalhouse.clinicaOdontologica.services.OdontologoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -18,6 +19,7 @@ import java.util.Optional;
 @Transactional
 public class OdontologoServiceImpl implements OdontologoService {
 
+    @Autowired
     private final OdontologoRepository odontologoRepository;
 
     public OdontologoServiceImpl(OdontologoRepository odontologoRepository) {

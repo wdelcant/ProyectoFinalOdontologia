@@ -53,7 +53,9 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.GET, "/odontologos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/odontologos/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/odontologos/**").hasRole("USER")
+                        .requestMatchers(HttpMethod.POST, "/turnos/**").hasRole("ODONTOLOGO")
                         .requestMatchers("/pacientes/**").hasRole("ADMIN")
                         .requestMatchers("/checkAuthenticated/**").authenticated()
                         .requestMatchers("/authenticate/**","/swagger-ui/**","/v3/api-docs",

@@ -28,23 +28,45 @@ public class PacienteServiceImpl implements PacienteService {
     }
 
     @Override
-    public Paciente save(Paciente paciente) {
+    public Paciente save(Paciente paciente) throws Exception{
+        return pacienteRepository.save(paciente);
+    }
+
+    private void validarPaciente(Paciente paciente) throws Exception{
         Objects.requireNonNull(paciente, "El paciente no puede ser nulo");
         Objects.requireNonNull(paciente.getDni(), "El dni no puede ser nulo");
-        // setea fecha de alta automaticamente
-        paciente.setFechaAlta(Date.from(LocalDateTime.now().toInstant(java.time.ZoneOffset.UTC)));
+        Objects.requireNonNull(paciente.getNombre(), "El nombre no puede ser nulo");
+        Objects.requireNonNull(paciente.getApellido(), "El apellido no puede ser nulo");
 
         Optional<Paciente> pacienteOptional = findByDni(paciente.getDni());
 
         if (paciente.getDni() == null && pacienteOptional.isPresent()) {
-            throw new RuntimeException("Ya existe un paciente con ese dni");
+            throw new Exception("Ya existe un paciente con ese dni");
         }
+
+        if (paciente.getDni() != null && pacienteOptional.isPresent() && paciente.getId().compareTo(pacienteOptional.get().getId()) != 0) {
+            throw new Exception("Ya existe un paciente con ese DNI");
+        }
+    }
+
+    @Override
+    public Paciente registrarPaciente(Paciente paciente) throws Exception {
+
+        if (paciente.getDni() == null) {
+            throw new Exception("El dni no puede ser nulo");
+        }
+        validarPaciente(paciente);
+
+        // setea fecha de alta automaticamente
+        paciente.setFechaAlta(Date.from(LocalDateTime.now().toInstant(java.time.ZoneOffset.UTC)));
+
         return pacienteRepository.save(paciente);
     }
 
     @Override
-    public Paciente update(Paciente paciente) {
-        return pacienteRepository.save(paciente);
+    public Paciente update(Paciente paciente) throws Exception {
+        validarPaciente(paciente);
+        return save(paciente);
     }
 
     @Override

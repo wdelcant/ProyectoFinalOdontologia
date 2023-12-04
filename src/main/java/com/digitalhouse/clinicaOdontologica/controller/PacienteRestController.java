@@ -48,14 +48,22 @@ public class PacienteRestController {
     }
 
     @PutMapping
-    public ResponseEntity<Paciente> editar(@RequestBody Paciente paciente) {
+    public ResponseEntity<Paciente> actualizar(@RequestBody Paciente paciente) throws Exception {
+        ResponseEntity<Paciente> reponse = null;
 
-        Paciente paciente1 = pacienteService.update(paciente);
-        logger.info("Se edito el paciente con id: " + paciente1.getId());
-
-        return ResponseEntity.ok(paciente1);
-
-
+        if (paciente.getId() != null && pacienteService.findById(paciente.getId()).isPresent()) {
+            try {
+                reponse = ResponseEntity.ok(pacienteService.update(paciente));
+                logger.info("Se actualizo el paciente con id: " + paciente.getId());
+            } catch (Exception e) {
+                logger.error(e.getMessage());
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "El paciente no pudo ser actualizado", e);
+            }
+        } else {
+            throw new Exception("El paciente no existe");
+        }
+        return reponse;
     }
 
 
@@ -64,7 +72,7 @@ public class PacienteRestController {
 
         List<Paciente> pacientes = pacienteService.findAll();
 
-        logger.info("Se devolvieron todos los pacientes");
+        logger.info("Se devolvieron la cantidad de " + pacientes.size() + " pacientes" );
 
         return ResponseEntity.ok(pacientes);
 
@@ -93,9 +101,11 @@ public class PacienteRestController {
 
         if (pacienteService.findById(id).isPresent()) {
             pacienteService.delete(id);
-            response = ResponseEntity.status(HttpStatus.NO_CONTENT).body("Eliminado");
+            logger.info("Se elimino el paciente con id: " + id);
+            response = ResponseEntity.status(HttpStatus.NO_CONTENT).body("Se elimino el paciente con id: " + id);
         } else {
             response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            logger.error("No se encontro el paciente con id: " + id);
         }
         return response;
     }
