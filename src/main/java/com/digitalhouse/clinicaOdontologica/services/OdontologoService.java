@@ -14,7 +14,7 @@ public interface OdontologoService {
 
     Optional<Odontologo> findById(Long id);
 
-    void delete(Long id);
+    Odontologo delete(Long id);
 
     List<Odontologo> findAll();
 

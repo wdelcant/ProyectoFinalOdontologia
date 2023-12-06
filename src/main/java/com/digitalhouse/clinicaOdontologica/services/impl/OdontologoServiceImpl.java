@@ -61,8 +61,9 @@ public class OdontologoServiceImpl implements OdontologoService {
     }
 
     @Override
-    public void delete(Long id) {
+    public Odontologo delete(Long id) {
         odontologoRepository.deleteById(id);
+        return null;
     }
 
     @Override

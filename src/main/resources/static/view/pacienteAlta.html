@@ -1,76 +1,96 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Pacientes</title>
+    <title>Pelicula</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/post_pacientes.js"></script>
+    <script type="text/javascript" src="js/paciente/pacientes_crud.js"></script>
+    <script type="text/javascript" src="js/regiones.js"></script>
+    <script type="module" src="js/logout.js"></script>
+
+    <script type="module">
+        import { checkAuthentication } from './js/login.js';
+        checkAuthentication();
+    </script>
 </head>
-<body>
-<div class="container">
-    <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a class="nav-link" href="/pacienteList.html">Listar Pacientes</a>
-        </li>
-    </ul>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="index.html">Clínica Odontológica</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pacienteList.html">Listado de Pacientes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="odontologoList.html">Listado de Odontólogos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="logout()">Cerrar sesión</a> <!-- Botón de cierre de sesión -->
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container mt-5">
+    <h1 class="text-center">Alta de Pacientes</h1>
     <div class="row">
-        <div class="col-sm-7" style="background-color:#e6fffa; padding:10px; border-radius:3px">
-            <h3>Agregar Paciente</h3>
-            <form id="add_new_paciente">
-                <div class="form-group">
-                    <label class="control-label" for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre"
-                           placeholder="Ingrese Nombre"
-                           name="nombre" required></input>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    Agregar Pacientes
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="apellido">Apellido:</label>
-                    <input type="text" class="form-control" id="apellido"
-                           placeholder="Ingrese Apellido"
-                           name="apellido" required></input>
+                <div class="card-body">
+                    <form id="add_new_paciente">
+                        <div class="form-group">
+                            <label class="control-label" for="nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre"
+                                   name="nombre"
+                                   required></input>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="apellido">Apellido:</label>
+                            <input type="text" class="form-control" id="apellido" placeholder="Ingrese el apellido"
+                                   name="apellido" required></input>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="dni">DNI:</label>
+                            <input type="text" class="form-control" id="dni" placeholder="Ingrese el DNI" name="dni"
+                                   required></input>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="calle">Calle:</label>
+                            <input type="text" class="form-control" id="calle" placeholder="Ingrese la calle"
+                                   name="calle"
+                                   required></input>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="numero">Número:</label>
+                            <input type="text" class="form-control" id="numero" placeholder="Ingrese el número"
+                                   name="numero"
+                                   required></input>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="regiones">Localidad:</label>
+                            <select class="form-control" id="regiones" name="localidad" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="comunas">Provincia:</label>
+                            <select class="form-control" id="comunas" name="provincia" required>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-danger" id="btn-add-new-premio">Guardar</button>
+                    </form>
+                    <div id="response" style="display:none; margin-top:10px">
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="control-label" for="dni">DNI:</label>
-                    <input type="text" class="form-control" id="dni"
-                           placeholder="Ingrese DNI"
-                           name="dni" required></input>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label" for="calle">Calle:</label>
-                    <input type="text" class="form-control" id="calle"
-                           placeholder="Ingrese Calle"
-                           name="calle" required></input>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="numero">Número:</label>
-                    <input type="text" class="form-control" id="numero"
-                           placeholder="Ingrese Número"
-                           name="numero" required></input>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="localidad">Localidad:</label>
-                    <input type="text" class="form-control" id="localidad"
-                           placeholder="Ingrese Localidad"
-                           name="localidad" required></input>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="provincia">Provincia:</label>
-                    <input type="text" class="form-control" id="provincia"
-                           placeholder="Ingrese Provincia"
-                           name="provincia" required></input>
-                </div>
-
-
-                <button type="submit" class="btn btn-danger"
-                        id="btn-add-new-paciente">Guardar</button>
-            </form>
-            <div id="response" style="display:none; margin-top:10px">
             </div>
         </div>
     </div>

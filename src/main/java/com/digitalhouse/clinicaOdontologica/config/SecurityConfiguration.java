@@ -23,7 +23,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -54,16 +53,29 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.GET, "/odontologos/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/odontologos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/odontologos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/odontologos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/turnos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/turnos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/turnos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/turnos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/pacientes/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/pacientes/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/pacientes/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/pacientes/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/odontologos/**").hasRole("USER")
                         .requestMatchers(HttpMethod.POST, "/turnos/**").hasRole("ODONTOLOGO")
                         .requestMatchers("/pacientes/**").hasRole("ADMIN")
                         .requestMatchers("/checkAuthenticated/**").authenticated()
-                        .requestMatchers("/authenticate/**","/swagger-ui/**","/v3/api-docs",
+                        .requestMatchers("/authenticate/**", "/swagger-ui/**", "/v3/api-docs",
                                 "/auth/v1/login",
-                                "/view**","/view/**",
-                                "/v3/api-docs/swagger-config")
+                                "/view**", "/view/**",
+                                "/v3/api-docs/swagger-config",
+                                "/view/login.html"
+                        )
                         .permitAll()
-                        .requestMatchers(HttpMethod.POST,"/authenticate**").permitAll())
+
+                        .requestMatchers(HttpMethod.POST, "/authenticate**").permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .userDetailsService(userService)
@@ -71,7 +83,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider(){
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         daoAuthenticationProvider.setUserDetailsService(userService);
@@ -104,7 +116,6 @@ public class SecurityConfiguration {
                 .build();
 
         return "";
-
     }
 
 

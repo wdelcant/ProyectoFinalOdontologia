@@ -2,6 +2,7 @@ package com.digitalhouse.clinicaOdontologica.domain;
 
 
 import com.digitalhouse.clinicaOdontologica.services.OdontologoService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.server.ResponseStatusException;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
@@ -18,39 +18,57 @@ public class OdontologoTest {
 
     @Autowired
     private OdontologoService odontologoService;
+
     @Test
     void shouldThrowExceptionWhenOdontologoDoesNotExist() {
-        // Given
+        Assertions.assertThrows(ResponseStatusException.class, () -> odontologoService.findById(1L));
+    }
+
+    @Test
+    void shouldCreateOdontologoInDatabase() {
         Odontologo odontologo = new Odontologo();
-        odontologo.setId(99L); // non-existing ID
-        odontologo.setNombre("Juan");
+        odontologo.setNombre("Dr. Juan");
         odontologo.setApellido("Perez");
-        odontologo.setMatricula(12345);
+        odontologo.setMatricula(123456);
 
-        // When
-        Exception exception = assertThrows(ResponseStatusException.class, () -> odontologoService.update(odontologo));
+        Odontologo savedOdontologo = odontologoService.save(odontologo);
+        logger.info("Odontologo saved: " + savedOdontologo.toString());
 
-        // Then
-        assertEquals("404 NOT_FOUND \"Odontologo with ID 999 not found\"", exception.getMessage());
+        Assertions.assertNotNull(savedOdontologo.getId());
+        Assertions.assertEquals(odontologo.getNombre(), savedOdontologo.getNombre());
+        Assertions.assertEquals(odontologo.getApellido(), savedOdontologo.getApellido());
+        Assertions.assertEquals(odontologo.getMatricula(), savedOdontologo.getMatricula());
+
+
     }
 
     @Test
     void shouldUpdateOdontologoInDatabase() {
-        // Given
         Odontologo odontologo = new Odontologo();
-        odontologo.setNombre("Juan");
+        odontologo.setNombre("Dr. Juan");
         odontologo.setApellido("Perez");
-        odontologo.setMatricula(12345);
-        Odontologo savedOdontologo = odontologoService.save(odontologo);
+        odontologo.setMatricula(123456);
 
-        // When
-        savedOdontologo.setNombre("Pedro");
+        Odontologo savedOdontologo = odontologoService.update(odontologo);
+        savedOdontologo.setNombre("Dr. Pedro");
         Odontologo updatedOdontologo = odontologoService.update(savedOdontologo);
+        logger.info("Odontologo saved: " + savedOdontologo.toString());
 
-        // Then
-        assertNotNull(updatedOdontologo);
-        assertEquals("Pedro", updatedOdontologo.getNombre());
-        assertEquals(odontologo.getApellido(), updatedOdontologo.getApellido());
-        assertEquals(odontologo.getMatricula(), updatedOdontologo.getMatricula());
+        Assertions.assertEquals("Dr. Pedro", updatedOdontologo.getNombre());
+    }
+
+    @Test
+    void shouldDeleteOdontologoFromDatabase() {
+        Odontologo odontologo = new Odontologo();
+        odontologo.setNombre("Dr. Juan");
+        odontologo.setApellido("Perez");
+        odontologo.setMatricula(123456);
+
+        Odontologo savedOdontologo = odontologoService.delete(odontologo.getId());
+        odontologoService.delete(savedOdontologo.getId());
+
+        Assertions.assertThrows(ResponseStatusException.class, () -> odontologoService.findById(savedOdontologo.getId()));
+
+        logger.info("Odontologo deleted: " + savedOdontologo.toString());
     }
 }

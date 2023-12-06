@@ -1,30 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Clinica Odontologa</title>
+    <title>ABM Pacientes</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
     <script type="module">
         import { checkAuthentication } from './js/login.js';
         checkAuthentication();
     </script>
+    <script type="module" src="./js/logout.js"></script>
 </head>
-<body>
-<div class="container">
-    <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a class="nav-link" href="/view/pacienteList.html">Listado de Pacientes</a>
-            <a class="nav-link" href="/view/pacienteAlta.html">Alta de Pacientes</a>
-            <a class="nav-link" href="/view/odontologoList.html">Listado de Odontologos</a>
-        </li>
-    </ul>
-
-    <hr>
-</div>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="index.html">Clínica Odontológica</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pacienteList.html">Listado de Pacientes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="odontologoList.html">Listado de Odontólogos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="logout()">Cerrar sesión</a> <!-- Botón de cierre de sesión -->
+            </li>
+        </ul>
+    </div>
+</nav>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        Pacientes
+                    </div>
+                    <div class="card-body">
+                        <a class="btn btn-success" href="/view/pacienteList.html">Listado de Pacientes</a>
+                        <a class="btn btn-success" href="/view/pacienteAlta.html">Alta de Paciente</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        Odontólogos
+                    </div>
+                    <div class="card-body">
+                        <a class="btn btn-info" href="/view/odontologoList.html">Listado de Odontólogos</a>
+                        <a class="btn btn-info" href="/view/odontologoAlta.html">Alta de Odontólogo</a> <!-- Nuevo enlace de alta de odontólogos -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

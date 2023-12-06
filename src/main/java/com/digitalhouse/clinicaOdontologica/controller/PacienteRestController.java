@@ -47,7 +47,7 @@ public class PacienteRestController {
         }
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<Paciente> actualizar(@RequestBody Paciente paciente) throws Exception {
         ResponseEntity<Paciente> reponse = null;
 
